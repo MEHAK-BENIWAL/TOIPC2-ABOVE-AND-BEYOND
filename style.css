@@ -1,0 +1,30 @@
+.light {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #8d9391;
+  }
+  .light::after {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    border-radius: 50%;
+  }
+  
+  #light1::after {
+    background-color: #f00;
+  }
+  
+  #light2::after {
+    background-color: #0f0;
+  }
+  
+  #light3::after {
+    background-color: #00f;
+  }
+  
+ 
+  
+  

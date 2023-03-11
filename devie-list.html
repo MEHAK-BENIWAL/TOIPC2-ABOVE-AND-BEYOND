@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smart Lighting Digital Twin</title>
+	
+</head>
+<body>
+   
+      
+	
+		
+       
+          <table id="lights">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Current Color</th>
+                <th>Change Color</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Light 1</td>
+                <td class="color" style="background-color: #ff0000;"></td>
+                <td><input type="checkbox" class="light-checkbox"><input type="color" class="light-color"></td>
+              </tr>
+              <tr>
+                <td>Light 2</td>
+                <td class="color" style="background-color: #00ff00;"></td>
+                <td><input type="checkbox" class="light-checkbox"><input type="color" class="light-color"></td>
+              </tr>
+              <tr>
+                <td>Light 3</td>
+                <td class="color" style="background-color: #0000ff;"></td>
+                <td><input type="checkbox" class="light-checkbox"><input type="color" class="light-color"></td>
+              </tr>
+            </tbody>          
+	</table>
+    <style>
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		td {
+			padding: 20px;
+			text-align: center;
+			border: 1px solid #330e0e;
+			background-color: #18764d;
+		}
+
+		.light {
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.light.on {
+			background-color: #2cbfab;
+		}
+
+		.light.off {
+			background-color: #333;
+		}
+
+		.color-picker {
+			position: absolute;
+			top: 10;
+			left: 5;
+			display: none;
+		}
+	</style>
+	<div class="color-picker" id="colorPicker"></div>
+    <div class="light-grid">
+        <div class="light" id="light1"></div>
+        <div class="light" id="light2"></div>
+        <div class="light" id="light3"></div>
+      </div>
+      <input type="color" id="colorPicker">
+
+      <script>
+        
+$(document).ready(function() {
+  $('.light-checkbox').change(function() {
+    if ($(this).is(':checked')) {
+      var color = $(this).parent().find('.light-color').val();
+      $(this).parent().css('background-color', color);
+    } else {
+      $(this).parent().css('background-color', 'color');
+    }
+  });
+  
+  $('.light-color').change(function() {
+    var color = $(this).val();
+    $(this).parent().css('background-color', color);
+  });
+});
+$(document).ready(function() {
+  $('.color-picker').change(function() {
+    var color = $(this).val();
+    var row = $(this).closest('tr');
+    row.find('.color').css('background-color', color);
+  });
+});
+
+
+
+      </script>
+            
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.light').click(function() {
+				var light = $(this);
+				var colorPicker = $('#colorPicker');
+				colorPicker.css('top', light.offset().top + 'px');
+				colorPicker.css('left', light.offset().left + 'px');
+				colorPicker.show();
+				colorPicker.off('change').on('change', function() {
+					light.css('background-color', colorPicker.val());
+					if (colorPicker.val() == '#ffffff') {
+						light.removeClass('on').addClass('off');
+					} else {
+						light.removeClass('off').addClass('on');
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
